@@ -128,3 +128,60 @@ Después:
 | aArreglo | O(n) | O(n) | Visita cada nodo y crea un arreglo de n elementos |
 | estaVacia | O(1) | O(1) | Compara tamanio con 0 |
 | obtenerTamanio | O(1) | O(1) | Devuelve el contador |
+
+## MiniReto 3: Corregir el historial sin romper la cadena
+
+### Dibujos de los 3 casos de eliminación
+
+#### Caso 1: Eliminar la cabeza
+
+```
+Antes:
+  cabeza ──▶ ┌───┐     ┌───┐     ┌───┐ ◀── cola
+              │ A │────▶│ B │────▶│ C │──▶ null
+              └───┘     └───┘     └───┘
+
+Después:  cabeza = cabeza.siguiente
+  cabeza ──▶ ┌───┐     ┌───┐ ◀── cola
+              │ B │────▶│ C │──▶ null
+              └───┘     └───┘
+```
+
+#### Caso 2: Eliminar un nodo intermedio
+
+```
+Antes:
+  cabeza ──▶ ┌───┐     ┌───┐     ┌───┐ ◀── cola
+              │ A │────▶│ B │────▶│ C │──▶ null
+              └───┘     └───┘     └───┘
+
+Después:  anterior.siguiente = anterior.siguiente.siguiente
+  cabeza ──▶ ┌───┐              ┌───┐ ◀── cola
+              │ A │─────────────▶│ C │──▶ null
+              └───┘              └───┘
+```
+
+#### Caso 3: Eliminar la cola
+
+```
+Antes:
+  cabeza ──▶ ┌───┐     ┌───┐     ┌───┐ ◀── cola
+              │ A │────▶│ B │────▶│ C │──▶ null
+              └───┘     └───┘     └───┘
+
+Después:  anterior.siguiente = null, cola = anterior
+  cabeza ──▶ ┌───┐     ┌───┐ ◀── cola
+              │ A │────▶│ B │──▶ null
+              └───┘     └───┘
+```
+
+**¿Por qué eliminar la cola requiere recorrer la lista?** En una lista simplemente enlazada, cada nodo solo conoce al siguiente, no al anterior. Para eliminar la cola necesitamos actualizar el `siguiente` del nodo **anterior** a `null`, y la única forma de llegar a él es recorrer desde la cabeza hasta encontrar el nodo cuyo `siguiente` es la cola.
+
+### Complejidad de las operaciones nuevas
+
+| Método | Tiempo | Espacio | Justificación |
+|--------|--------|---------|---------------|
+| buscar | O(n) | O(1) | Recorre hasta encontrar o llegar al final |
+| insertarDespuesDe | O(n) | O(1) | Recorre hasta el nodo que cumple, inserta en O(1) |
+| eliminar (cabeza) | O(1) | O(1) | Solo cambia la referencia de cabeza |
+| eliminar (intermedio/cola) | O(n) | O(1) | Necesita encontrar el nodo anterior |

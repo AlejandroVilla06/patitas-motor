@@ -41,6 +41,56 @@ class ListaEnlazada {
     return datos;
   }
 
+  buscar(condicion) {
+    let actual = this.cabeza;
+    while (actual) {
+      if (condicion(actual.dato)) return actual.dato;
+      actual = actual.siguiente;
+    }
+    return null;
+  }
+
+  insertarDespuesDe(condicion, dato) {
+    let actual = this.cabeza;
+    while (actual) {
+      if (condicion(actual.dato)) {
+        const nuevo = new Nodo(dato);
+        nuevo.siguiente = actual.siguiente;
+        actual.siguiente = nuevo;
+        if (actual === this.cola) this.cola = nuevo;
+        this.tamanio++;
+        return true;
+      }
+      actual = actual.siguiente;
+    }
+    return false;
+  }
+
+  eliminar(condicion) {
+    if (!this.cabeza) return null;
+
+    if (condicion(this.cabeza.dato)) {
+      const dato = this.cabeza.dato;
+      this.cabeza = this.cabeza.siguiente;
+      if (!this.cabeza) this.cola = null;
+      this.tamanio--;
+      return dato;
+    }
+
+    let anterior = this.cabeza;
+    while (anterior.siguiente) {
+      if (condicion(anterior.siguiente.dato)) {
+        const dato = anterior.siguiente.dato;
+        anterior.siguiente = anterior.siguiente.siguiente;
+        if (!anterior.siguiente) this.cola = anterior;
+        this.tamanio--;
+        return dato;
+      }
+      anterior = anterior.siguiente;
+    }
+    return null;
+  }
+
   estaVacia() {
     return this.tamanio === 0;
   }
