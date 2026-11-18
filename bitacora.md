@@ -185,3 +185,17 @@ Después:  anterior.siguiente = null, cola = anterior
 | insertarDespuesDe | O(n) | O(1) | Recorre hasta el nodo que cumple, inserta en O(1) |
 | eliminar (cabeza) | O(1) | O(1) | Solo cambia la referencia de cabeza |
 | eliminar (intermedio/cola) | O(n) | O(1) | Necesita encontrar el nodo anterior |
+
+## MiniReto 4: Patitas v0.1 — historiales completos
+
+### Tabla comparativa: ListaEnlazada vs Arreglo
+
+| Operación | ListaEnlazada | Arreglo | Cuándo gana la lista |
+|-----------|---------------|---------|----------------------|
+| Agregar al final | O(1) con cola | O(1) amortizado | Siempre constante, sin redimensión |
+| Agregar al inicio | O(1) | O(n) | No desplaza elementos |
+| Eliminar al inicio | O(1) | O(n) | No desplaza elementos |
+| Buscar por valor | O(n) | O(n) | Igual — ambos recorren |
+| Acceso por índice | O(n) | O(1) | Pierde — no hay acceso directo |
+
+**Conclusión**: la lista enlazada gana cuando las operaciones frecuentes son insertar/eliminar al inicio o en posiciones conocidas. El arreglo gana cuando necesitamos acceso aleatorio por índice. Para historiales clínicos (agregar al final cronológicamente, recorrer completo, buscar por condición), ambos funcionan bien, pero la lista nos enseña cómo funcionan las referencias y la memoria.
